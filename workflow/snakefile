@@ -18,7 +18,7 @@ rule download_and_extract:
         tar -xzf {output.tar} -C data/
         """
 
-# RULE 2: Process in Python (Scanpy reads the directory)
+# RULE 2: Process in Python (Scanpy)
 rule run_qc:
     input:
         "data/filtered_gene_bc_matrices/hg19"

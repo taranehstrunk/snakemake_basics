@@ -49,6 +49,7 @@ snakemake --use-conda --cores 1
 ```
 Understand logic 
 ```
+mamba install conda-forge::graphviz
 snakemake --dag | dot -Tpdf > results/dag.pdf
 ```
 
