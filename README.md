@@ -18,8 +18,8 @@ actual workflow implementation. Uses wildcards, conda and config values, is the 
 ## Example workflow
 ### Execute target rule and 4 main rules:
 0. `rule_all`: target rule, doesn't process anything itself but lists all files we want to exist at end of the day 
-1. `download_data`: 
-2. `run_qc`: 
+1. `download_data`: no input, output is downloaded test data, path as variable from config file
+2. `run_qc`:  
 3. `plot_results`:
 4. `summarize`: 
 
@@ -58,3 +58,5 @@ snakemake --dag | dot -Tpdf > results/dag.pdf
 - first run takes a tiny bit longer because R and python are installed internally. This is also a dependency that is later met and will thus not be executed again!
 - VSCode has a snakemake extension 
 - pinning major dependencies in `.yaml` ensures pipeline works exactly as it is (e.g. `numpy<2.0`)
+- if you later want to add more files, extend the samples list and snakemake will expand to that, i.e. "clone" rule for every sample -> run in parallel with increasing `--cores`
+- `.snakemake` diectory: environment is build here -> should not be manually edited, but can be deleted 

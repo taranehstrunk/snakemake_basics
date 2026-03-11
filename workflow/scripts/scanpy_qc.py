@@ -3,7 +3,7 @@ import pandas as pd
 import os
 
 # Read the 10x directory directly
-adata = sc.read_10x_mtx(snakemake.input[0], var_names='gene_symbols', cache=True)
+adata = sc.read_10x_mtx(snakemake.input[0], var_names='gene_symbols', cache=False)
 adata.var_names_make_unique()
 
 # Perform QC
