@@ -19,9 +19,9 @@ actual workflow implementation. Uses wildcards, conda and config values, is the 
 ### Execute target rule and 4 main rules:
 0. `rule_all`: target rule, doesn't process anything itself but lists all files we want to exist at end of the day 
 1. `download_data`: no input, output is downloaded test data, path as variable from config file
-2. `run_qc`:  
-3. `plot_results`:
-4. `summarize`: 
+2. `run_qc`: execute python script which reads in data and processes, add parameters from config file for filtering threshold of sc-data
+3. `plot_results`: use R to plot results, input is qc from previous rule
+4. `summarize`: from qc of samples (rule 2), run shell command to generate report
 
 
 ### Wildcards
