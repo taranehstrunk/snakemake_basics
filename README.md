@@ -13,7 +13,7 @@ contains data information and keeps that separate from code.
 ### 2. Conda environment(s)
 `.yaml` files. Handles requirement setup automatically 
 ### 3. Snakefile 
-actual workflow implementation. Uses wildcards, conda and config values, is the heart of the pipeline
+actual workflow implementation defined as set of rules that have input, output and some execution (script, shell,...). Uses wildcards, conda and config values, is the heart of the pipeline
 
 ## Example workflow
 ### Execute target rule and 4 main rules:
