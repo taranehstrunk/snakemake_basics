@@ -1,1 +1,54 @@
+configfile: "../config/config.yaml"
 
+rule all:
+    input:
+        "results/final_report.txt",
+        expand("results/plots/{sample}_qc_plot.pdf", sample=config["samples"])
+
+# RULE 1: Download and Extract 10x Data
+rule download_and_extract:
+    output:
+        tar = temp("data/pbmc3k_raw.tar.gz"),
+        out_dir = directory("data/filtered_gene_bc_matrices/hg19")
+    params:
+        url = config["qc"]["target_url"]
+    shell:
+        """
+        curl -L {params.url} -o {output.tar}
+        tar -xzf {output.tar} -C data/
+        """
+
+# RULE 2: Process in Python (Scanpy reads the directory)
+rule run_qc:
+    input:
+        "data/filtered_gene_bc_matrices/hg19"
+    output:
+        h5ad = "results/interim/{sample}_filtered.h5ad",
+        stats = "results/interim/{sample}_qc_stats.csv"
+    params:
+        min_g = config["qc"]["min_genes"]
+    conda:
+        "envs/scanpy.yaml"
+    script:
+        "scripts/scanpy_qc.py"
+
+# RULE 3: Plot in R
+rule plot_results:
+    input:
+        stats = "results/interim/{sample}_qc_stats.csv",
+        h5ad = "results/interim/{sample}_filtered.h5ad"
+    output:
+        "results/plots/{sample}_qc_plot.pdf"
+    conda:
+        "envs/seurat.yaml"
+    script:
+        "scripts/seurat_viz.R"
+
+# RULE 4: Aggregate
+rule summarize:
+    input:
+        expand("results/interim/{sample}_qc_stats.csv", sample=config["samples"])
+    output:
+        "results/final_report.txt"
+    shell:
+        "column -t -s, {input} > {output}"

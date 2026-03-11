@@ -1,0 +1,9 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - r-base=4.3
+  - r-ggplot2
+  - r-dplyr
+  - r-seurat=5.0.1  # Explicitly naming the version
+  - r-patchwork

@@ -1,0 +1,10 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.10
+  - scanpy=1.9
+  - python-igraph
+  - leidenalg
+  - pandas<2.1
+  - numpy<2.0
