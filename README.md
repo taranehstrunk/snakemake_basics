@@ -1,5 +1,5 @@
 # Snakemake basics
-Repo to understanding snakemake functionalities and setup a basic workflow. 
+Repo to understand snakemake functionalities and setup a basic workflow using R and python in different environments. 
 
 ## Background
 - Reproducibility: all tool versions are locked in conda environment -> will work in the future
@@ -47,7 +47,10 @@ Execution:
 ```
 snakemake --use-conda --cores 1
 ```
-
+Understand logic 
+```
+snakemake --dag | dot -Tpdf > results/dag.pdf
+```
 
 
 ## Notes
